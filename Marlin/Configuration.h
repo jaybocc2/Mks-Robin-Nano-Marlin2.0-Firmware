@@ -929,7 +929,7 @@
  */
 #define DEFAULT_AXIS_STEPS_PER_UNIT \
   {                                 \
-    160, 160, 1066.67, 107.8        \
+    160, 160, 9600, 107.8           \
   }
 
 /**
@@ -1186,7 +1186,7 @@
 // #define NOZZLE_TO_PROBE_OFFSET { -20, -1, -1.2  }
 #define NOZZLE_TO_PROBE_OFFSET \
   {                            \
-    -44, -4, -1.2              \
+    -44, -4, -28               \
   }
 
 // Most probes should stay away from the edges of the bed, but
@@ -1263,7 +1263,7 @@
 #define Z_PROBE_LOW_POINT -2 // Farthest distance below the trigger-point to go before stopping
 
 // For M851 give a range for adjusting the Z probe offset
-#define Z_PROBE_OFFSET_RANGE_MIN -20
+#define Z_PROBE_OFFSET_RANGE_MIN -30
 #define Z_PROBE_OFFSET_RANGE_MAX 20
 
 // Enable the M48 repeatability test to test probe accuracy
@@ -1381,8 +1381,8 @@
 #define Y_BED_SIZE 220
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
-#define X_MIN_POS 0
-#define Y_MIN_POS 0
+#define X_MIN_POS 65
+#define Y_MIN_POS 25
 #define Z_MIN_POS 0
 // #define X_MAX_POS X_BED_SIZE
 // #define Y_MAX_POS Y_BED_SIZE
@@ -1557,7 +1557,7 @@
  * leveling immediately after G28.
  */
 //#define RESTORE_LEVELING_AFTER_G28
-//#define ENABLE_LEVELING_AFTER_G28
+#define ENABLE_LEVELING_AFTER_G28
 
 /**
  * Auto-leveling needs preheating
@@ -1756,7 +1756,11 @@
 #endif
 
 // Homing speeds (mm/min)
-#define HOMING_FEEDRATE_MM_M { (50*60), (50*60), (4*60) }
+// #define HOMING_FEEDRATE_MM_M { (50*60), (50*60), (4*60) }
+#define HOMING_FEEDRATE_MM_M        \
+  {                                 \
+    (50 * 60), (50 * 60), (4 * 150) \
+  }
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
@@ -1866,17 +1870,23 @@
 //
 // Preheat Constants - Up to 5 are supported without changes
 //
-#define PREHEAT_1_LABEL       "PLA"
-#define PREHEAT_1_TEMP_HOTEND 180
-#define PREHEAT_1_TEMP_BED     70
+#define PREHEAT_1_LABEL "PETG"
+#define PREHEAT_1_TEMP_HOTEND 235
+#define PREHEAT_1_TEMP_BED 70
 #define PREHEAT_1_TEMP_CHAMBER 35
-#define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
+#define PREHEAT_1_FAN_SPEED 0 // Value from 0 to 255
 
-#define PREHEAT_2_LABEL       "ABS"
-#define PREHEAT_2_TEMP_HOTEND 240
-#define PREHEAT_2_TEMP_BED    110
+#define PREHEAT_2_LABEL "PLA"
+#define PREHEAT_2_TEMP_HOTEND 180
+#define PREHEAT_2_TEMP_BED 70
 #define PREHEAT_2_TEMP_CHAMBER 35
-#define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
+#define PREHEAT_2_FAN_SPEED 0 // Value from 0 to 255
+
+#define PREHEAT_3_LABEL "ABS"
+#define PREHEAT_3_TEMP_HOTEND 240
+#define PREHEAT_3_TEMP_BED 110
+#define PREHEAT_3_TEMP_CHAMBER 35
+#define PREHEAT_3_FAN_SPEED 0 // Value from 0 to 255
 
 /**
  * Nozzle Park
