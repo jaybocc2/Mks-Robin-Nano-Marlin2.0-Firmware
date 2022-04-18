@@ -2948,64 +2948,65 @@
    *
    * Comment *_STALL_SENSITIVITY to disable sensorless homing for that axis.
    */
-  //#define SENSORLESS_HOMING // StallGuard capable drivers only
-  #define SENSORLESS_HOMING // StallGuard capable drivers only
+//#define SENSORLESS_HOMING // StallGuard capable drivers only
 
-  #if EITHER(SENSORLESS_HOMING, SENSORLESS_PROBING)
-    // TMC2209: 0...255. TMC2130: -64...63
-    // #define X_STALL_SENSITIVITY  8
-    #define X_STALL_SENSITIVITY  125
-    #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
-    // #define Y_STALL_SENSITIVITY  8
-    #define Y_STALL_SENSITIVITY  125
-    #define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
-    //#define Z_STALL_SENSITIVITY  8
-    //#define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY
-    //#define Z3_STALL_SENSITIVITY Z_STALL_SENSITIVITY
-    //#define Z4_STALL_SENSITIVITY Z_STALL_SENSITIVITY
-    //#define I_STALL_SENSITIVITY  8
-    //#define J_STALL_SENSITIVITY  8
-    //#define K_STALL_SENSITIVITY  8
-    //#define SPI_ENDSTOPS              // TMC2130 only
-    //#define IMPROVE_HOMING_RELIABILITY
-  #endif
+#if EITHER(SENSORLESS_HOMING, SENSORLESS_PROBING)
+// TMC2209: 0...255. TMC2130: -64...63
+// #define X_STALL_SENSITIVITY  8
+#define X_STALL_SENSITIVITY 125
+#define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
+// #define Y_STALL_SENSITIVITY  8
+#define Y_STALL_SENSITIVITY 125
+#define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
+//#define Z_STALL_SENSITIVITY  8
+//#define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY
+//#define Z3_STALL_SENSITIVITY Z_STALL_SENSITIVITY
+//#define Z4_STALL_SENSITIVITY Z_STALL_SENSITIVITY
+//#define I_STALL_SENSITIVITY  8
+//#define J_STALL_SENSITIVITY  8
+//#define K_STALL_SENSITIVITY  8
+//#define SPI_ENDSTOPS              // TMC2130 only
+//#define IMPROVE_HOMING_RELIABILITY
+#endif
 
-  /**
-   * TMC Homing stepper phase.
-   *
-   * Improve homing repeatability by homing to stepper coil's nearest absolute
-   * phase position. Trinamic drivers use a stepper phase table with 1024 values
-   * spanning 4 full steps with 256 positions each (ergo, 1024 positions).
-   * Full step positions (128, 384, 640, 896) have the highest holding torque.
-   *
-   * Values from 0..1023, -1 to disable homing phase for that axis.
-   */
-   //#define TMC_HOME_PHASE { 896, 896, 896 }
+/**
+ * TMC Homing stepper phase.
+ *
+ * Improve homing repeatability by homing to stepper coil's nearest absolute
+ * phase position. Trinamic drivers use a stepper phase table with 1024 values
+ * spanning 4 full steps with 256 positions each (ergo, 1024 positions).
+ * Full step positions (128, 384, 640, 896) have the highest holding torque.
+ *
+ * Values from 0..1023, -1 to disable homing phase for that axis.
+ */
+//#define TMC_HOME_PHASE { 896, 896, 896 }
 
-  /**
-   * Beta feature!
-   * Create a 50/50 square wave step pulse optimal for stepper drivers.
-   */
-  //#define SQUARE_WAVE_STEPPING
+/**
+ * Beta feature!
+ * Create a 50/50 square wave step pulse optimal for stepper drivers.
+ */
+//#define SQUARE_WAVE_STEPPING
 
-  /**
-   * Enable M122 debugging command for TMC stepper drivers.
-   * M122 S0/1 will enable continuous reporting.
-   */
-  //#define TMC_DEBUG
+/**
+ * Enable M122 debugging command for TMC stepper drivers.
+ * M122 S0/1 will enable continuous reporting.
+ */
+//#define TMC_DEBUG
 
-  /**
-   * You can set your own advanced settings by filling in predefined functions.
-   * A list of available functions can be found on the library github page
-   * https://github.com/teemuatlut/TMCStepper
-   *
-   * Example:
-   * #define TMC_ADV() { \
-   *   stepperX.diag0_otpw(1); \
-   *   stepperY.intpol(0); \
-   * }
-   */
-  #define TMC_ADV() {  }
+/**
+ * You can set your own advanced settings by filling in predefined functions.
+ * A list of available functions can be found on the library github page
+ * https://github.com/teemuatlut/TMCStepper
+ *
+ * Example:
+ * #define TMC_ADV() { \
+ *   stepperX.diag0_otpw(1); \
+ *   stepperY.intpol(0); \
+ * }
+ */
+#define TMC_ADV() \
+  {               \
+  }
 
 #endif // HAS_TRINAMIC_CONFIG
 
