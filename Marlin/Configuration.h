@@ -931,10 +931,8 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT \
-  {                                 \
-    160, 160, 9600, 107.8           \
-  }
+// #define DEFAULT_AXIS_STEPS_PER_UNIT { 160, 160, 6400, 142.8 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT { 160, 160, 6400, 141 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -954,7 +952,7 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 200, 2000 }
+#define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 10, 2000 }
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1188,10 +1186,10 @@
  *     O-- FRONT --+
  */
 // #define NOZZLE_TO_PROBE_OFFSET { -20, -1, -1.2  }
-#define NOZZLE_TO_PROBE_OFFSET \
-  {                            \
-    -44, -4, -28               \
-  }
+// #define NOZZLE_TO_PROBE_OFFSET { -44, -4, 3.55 } // -1.2 + 4.75 = 3.55
+#define NOZZLE_TO_PROBE_OFFSET { -44, -4, -2.80 } // -1.2 + 4.75 = 3.55
+// 8.13mm instead of 10mm.
+// 120 marked, 100mm sent, 44.5mm left. 75.5mm extruded
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -1335,7 +1333,7 @@
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
 #define INVERT_X_DIR false
 #define INVERT_Y_DIR true
-#define INVERT_Z_DIR false
+#define INVERT_Z_DIR true
 //#define INVERT_I_DIR false
 //#define INVERT_J_DIR false
 //#define INVERT_K_DIR false
@@ -1343,7 +1341,8 @@
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#define INVERT_E0_DIR false
+// #define INVERT_E0_DIR false
+#define INVERT_E0_DIR true
 #define INVERT_E1_DIR false
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
@@ -1385,13 +1384,13 @@
 #define Y_BED_SIZE 220
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
-#define X_MIN_POS 65
-#define Y_MIN_POS 25
+#define X_MIN_POS -35
+#define Y_MIN_POS -30
 #define Z_MIN_POS 0
 // #define X_MAX_POS X_BED_SIZE
 // #define Y_MAX_POS Y_BED_SIZE
-#define X_MAX_POS 320
-#define Y_MAX_POS 320
+#define X_MAX_POS 190
+#define Y_MAX_POS 195
 // #define Z_MAX_POS 180
 #define Z_MAX_POS 300
 //#define I_MIN_POS 0
@@ -1566,10 +1565,10 @@
 /**
  * Auto-leveling needs preheating
  */
-//#define PREHEAT_BEFORE_LEVELING
+#define PREHEAT_BEFORE_LEVELING
 #if ENABLED(PREHEAT_BEFORE_LEVELING)
-#define LEVELING_NOZZLE_TEMP 120 // (°C) Only applies to E0 at this time
-#define LEVELING_BED_TEMP 50
+  #define LEVELING_NOZZLE_TEMP 230 // (°C) Only applies to E0 at this time
+  #define LEVELING_BED_TEMP 70
 #endif
 
 /**
@@ -1580,8 +1579,8 @@
 //#define DEBUG_LEVELING_FEATURE
 
 #if ANY(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL, PROBE_MANUALLY)
-// Set a height for the start of manual adjustment
-#define MANUAL_PROBE_START_Z 0.2 // (mm) Comment out to use the last-measured height
+  // Set a height for the start of manual adjustment
+  #define MANUAL_PROBE_START_Z 0.2 // (mm) Comment out to use the last-measured height
 #endif
 
 #if ANY(MESH_BED_LEVELING, AUTO_BED_LEVELING_BILINEAR, AUTO_BED_LEVELING_UBL)
@@ -1761,10 +1760,7 @@
 
 // Homing speeds (mm/min)
 // #define HOMING_FEEDRATE_MM_M { (50*60), (50*60), (4*60) }
-#define HOMING_FEEDRATE_MM_M        \
-  {                                 \
-    (50 * 60), (50 * 60), (4 * 150) \
-  }
+#define HOMING_FEEDRATE_MM_M { (50 * 60), (50 * 60), (4 * 60) }
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
@@ -1841,10 +1837,10 @@
  *   M501 - Read settings from EEPROM. (i.e., Throw away unsaved changes)
  *   M502 - Revert settings to "factory" defaults. (Follow with M500 to init the EEPROM.)
  */
-#define EEPROM_SETTINGS     // Persistent storage with M500 and M501
+// #define EEPROM_SETTINGS     // Persistent storage with M500 and M501
 //#define DISABLE_M503        // Saves ~2700 bytes of PROGMEM. Disable for release!
-#define EEPROM_CHITCHAT       // Give feedback on EEPROM commands. Disable to save PROGMEM.
-#define EEPROM_BOOT_SILENT    // Keep M503 quiet and only give errors during first load
+// #define EEPROM_CHITCHAT       // Give feedback on EEPROM commands. Disable to save PROGMEM.
+// #define EEPROM_BOOT_SILENT    // Keep M503 quiet and only give errors during first load
 #if ENABLED(EEPROM_SETTINGS)
   #define EEPROM_AUTO_INIT  // Init EEPROM automatically on any errors.
 #endif
@@ -2665,7 +2661,7 @@
 // 480x320, 3.5", SPI Display From MKS
 // Normally used in MKS Robin Nano V2
 //
-#define MKS_TS35_V2_0
+// #define MKS_TS35_V2_0
 
 //
 // 320x240, 2.4", FSMC Display From MKS
@@ -2763,7 +2759,7 @@
  */
 //#define TFT_CLASSIC_UI
 //#define TFT_COLOR_UI
-#define TFT_LVGL_UI
+// #define TFT_LVGL_UI
 
 #if ENABLED(TFT_LVGL_UI)
   #define MKS_WIFI_MODULE  // MKS WiFi module
@@ -2807,7 +2803,7 @@
 //
 // Touch Screen Settings
 //
-#define TOUCH_SCREEN
+// #define TOUCH_SCREEN
 #if ENABLED(TOUCH_SCREEN)
   #define BUTTON_DELAY_EDIT  50 // (ms) Button repeat delay for edit screens
   #define BUTTON_DELAY_MENU 250 // (ms) Button repeat delay for menus
